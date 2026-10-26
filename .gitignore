@@ -14,3 +14,20 @@ __pycache__/
 
 # Independent repository
 /ecr-demo-app/
+
+# Terraform generated files and state
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+crash.log
+crash.*.log
+
+# Local secrets
+.env
+.env.*
+!.env.example
+.aws/
+*.pem
+*.key
