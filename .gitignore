@@ -1,0 +1,16 @@
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.aws/
+
+# Generated files
+node_modules/
+.terraform/
+__pycache__/
+*.pyc
+
+# Independent repository
+/ecr-demo-app/

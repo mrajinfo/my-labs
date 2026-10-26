@@ -1,0 +1,9 @@
+---
+- name: My First Ansible Playbook
+  hosts: local
+  gather_facts: false
+
+  tasks:
+    - name: Display a welcome message
+      ansible.builtin.debug:
+        msg: "Hello! Ansible is working successfully."

@@ -1,0 +1,14 @@
+{
+  "name": "@umer/shared",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bikram Sambat / Gregorian conversion and age calculation shared by the client and the server.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "test": "node --test"
+  }
+}

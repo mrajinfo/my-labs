@@ -1,0 +1,14 @@
+# Optional: a local MongoDB for development.
+#   docker compose up -d
+# Matches the default MONGODB_URI in server/.env.example.
+services:
+  mongo:
+    image: mongo:8
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:27017:27017'
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

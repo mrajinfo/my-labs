@@ -1,0 +1,14 @@
+
+---
+- name: Deploy custom website to AWS EC2
+  hosts: aws_servers
+  become: true
+
+  tasks:
+    - name: Copy website to Nginx web root
+      ansible.builtin.copy:
+        src: website/index.html
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: "0644"

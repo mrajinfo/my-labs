@@ -1,0 +1,249 @@
+@import 'tailwindcss';
+
+/*
+ * Anek Devanagari by Ek Type (SIL OFL 1.1), self-hosted from @fontsource.
+ * Latin comes with the width axis for the wide patro numerals; Devanagari
+ * uses the weight-only file, a third of the size, since it's never stretched.
+ */
+@font-face {
+  font-family: 'Anek Devanagari';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 800;
+  font-stretch: 75% 125%;
+  src: url('@fontsource-variable/anek-devanagari/files/anek-devanagari-latin-wdth-normal.woff2')
+    format('woff2-variations');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F,
+    U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Anek Devanagari';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 800;
+  font-stretch: 75% 125%;
+  src: url('@fontsource-variable/anek-devanagari/files/anek-devanagari-latin-ext-wdth-normal.woff2')
+    format('woff2-variations');
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
+    U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Anek Devanagari';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 800;
+  src: url('@fontsource-variable/anek-devanagari/files/anek-devanagari-devanagari-wght-normal.woff2')
+    format('woff2-variations');
+  unicode-range:
+    U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
+}
+
+/*
+ * Palette from the Nepali wall calendar (patro) and the national flag:
+ * flag blue for actions, crimson for Saturdays and "today", marigold
+ * (sayapatri) for birthdays, on cool paper.
+ */
+@theme {
+  --font-sans: 'Anek Devanagari', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --color-paper: #f3f5f9;
+  --color-card: #ffffff;
+  --color-ink: #13224a;
+  --color-ink-2: #4f5b78;
+  --color-ink-3: #626b81;
+  --color-line: #dfe4ee;
+  --color-line-strong: #c3cbdb;
+  --color-brand: #003893;
+  --color-brand-strong: #002a70;
+  --color-brand-tint: #e9effb;
+  --color-crimson: #c8102e;
+  --color-crimson-strong: #a30d25;
+  --color-crimson-tint: #fcebee;
+  --color-marigold: #f2a20c;
+  --color-marigold-tint: #fff4dc;
+  --color-marigold-ink: #6e4300;
+
+  --shadow-card: 0 1px 2px rgb(19 34 74 / 0.05), 0 10px 30px -18px rgb(19 34 74 / 0.25);
+  --shadow-pop: 0 18px 50px -12px rgb(19 34 74 / 0.4);
+
+  --animate-flash: flash 2.2s ease-out;
+}
+
+@keyframes flash {
+  0%,
+  35% {
+    background-color: var(--color-marigold-tint);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: var(--color-brand-tint);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+
+  /* Freeze the page behind an open dialog. */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
+  [lang='ne'] {
+    line-height: 1.6;
+  }
+}
+
+@layer components {
+  /* Numerals in the patro style: wide, solid, evenly spaced. */
+  .figure {
+    font-stretch: 125%;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums lining-nums;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+
+  /* ---- Dialogs: bottom sheet on phones, centred card from 640px ---- */
+  .dialog {
+    width: 100%;
+    max-width: 100%;
+    max-height: min(92dvh, 100%);
+    margin: auto 0 0;
+    padding: 0;
+    border: 0;
+    border-radius: 1.25rem 1.25rem 0 0;
+    background: var(--color-card);
+    color: var(--color-ink);
+    box-shadow: var(--shadow-pop);
+    overflow: hidden;
+    overscroll-behavior: contain;
+  }
+
+  .dialog[open] {
+    display: flex;
+    flex-direction: column;
+    animation: sheet-in 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .dialog::backdrop {
+    background: rgb(19 34 74 / 0.45);
+    animation: fade-in 200ms ease-out;
+  }
+
+  @media (min-width: 40rem) {
+    .dialog {
+      margin: auto;
+      width: calc(100% - 2rem);
+      max-width: var(--dialog-width, 32rem);
+      max-height: min(88dvh, 52rem);
+      border-radius: 1.25rem;
+    }
+
+    .dialog[open] {
+      animation-name: pop-in;
+    }
+  }
+
+  /* ---- Family register rows: stacked on narrow panels, columns when wide ---- */
+  .member-list {
+    container-type: inline-size;
+  }
+
+  .member-row {
+    display: grid;
+    grid-template-columns: 2.75rem minmax(0, 1fr) auto;
+    grid-template-areas:
+      'avatar person menu'
+      'avatar age age'
+      'avatar meta meta';
+    column-gap: 0.875rem;
+    row-gap: 0.125rem;
+    align-items: center;
+  }
+
+  .member-columns {
+    display: none;
+  }
+
+  @container (min-width: 44rem) {
+    .member-row,
+    .member-columns {
+      display: grid;
+      grid-template-columns: 2.75rem minmax(0, 1.3fr) minmax(8.75rem, 1.15fr) minmax(0, 1.2fr) minmax(0, 1.25fr) 2.5rem;
+      grid-template-areas: 'avatar person age born birthday menu';
+      column-gap: 1rem;
+      row-gap: 0;
+    }
+
+    .member-meta-mobile {
+      display: none;
+    }
+  }
+
+  .member-wide {
+    display: none;
+  }
+
+  @container (min-width: 44rem) {
+    .member-wide {
+      display: block;
+    }
+  }
+}
+
+@keyframes sheet-in {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    transform: translateY(8px) scale(0.98);
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after,
+  ::backdrop {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

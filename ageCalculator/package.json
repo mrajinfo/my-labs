@@ -1,0 +1,25 @@
+{
+  "name": "nepali-age-calculator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Umer — a MERN family age calculator for Bikram Sambat (BS) and Gregorian (AD) dates.",
+  "workspaces": [
+    "shared",
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently --names api,web --prefix-colors blue,magenta --kill-others-on-fail \"npm run dev -w @umer/server\" \"npm run dev -w @umer/client\"",
+    "dev:lan": "concurrently --names api,web --prefix-colors blue,magenta --kill-others-on-fail \"npm run dev -w @umer/server\" \"npm run dev -w @umer/client -- --host\"",
+    "build": "npm run build -w @umer/client",
+    "start": "npm run start -w @umer/server",
+    "test": "npm test -w @umer/shared && npm test -w @umer/server",
+    "lint": "npm run lint -w @umer/client"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  },
+  "engines": {
+    "node": ">=20.19"
+  }
+}
